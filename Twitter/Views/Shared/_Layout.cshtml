@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .navbar-nav {
+            float: right;
+            margin: 0;
+        }
+        label {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">               
+                <a style="color:white; text-decoration:none;" href="/"><h2>@ViewBag.Title</h2></a>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Session["userId"]?.ToString()))
+            {   
+                <div class="navbar-collapse collapse" style="color:white;">
+                    <ul class="nav navbar-nav">
+                        <li><label>Welcome @Session["userId"].ToString() </label></li>
+                        <li>@Html.ActionLink("Home", "Dashboard")</li>
+                        <li>@Html.ActionLink("Profile", "Index", "Profile")</li>
+                        <li><a href="/Account/Logout">Logout</a></li>
+                    </ul>
+                </div>
+            }           
+
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()        
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
